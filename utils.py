@@ -11,7 +11,6 @@ def predict_ingredients(model, image):
     ingredients = list(set([model.names[int(cls)] for cls in results[0].boxes.cls.tolist()]))
     return ingredients
 
-
 def load_recipes():
     recipes = []
     for file in os.listdir("recipes"):
