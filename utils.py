@@ -24,8 +24,15 @@ def recommend_recipes(input_ingredients, all_recipes):
     recommended = []
     for recipe in all_recipes:
         recipe_ingredients = set(i.lower().strip() for i in recipe['ingredients'])
-        if input_set.issubset(recipe_ingredients):
-            recommended.append(recipe)
+        matched = input_set & recipe_ingredients  # find common ingredients
+
+        if len(matched) >= 3:  # ✅ match if 3 or more ingredients overlap
+            recommended.append({
+                "title": recipe['title'],
+                "ingredients": recipe['ingredients'],
+                "matched_ingredients": list(matched),
+                "match_count": len(matched)
+            })
     return recommended[:5]
 
 def get_full_recipe(title):

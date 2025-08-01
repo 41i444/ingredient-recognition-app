@@ -1,6 +1,9 @@
 import streamlit as st
 from PIL import Image
 from utils import load_model, predict_ingredients, load_recipes, recommend_recipes, get_full_recipe
+import io
+import base64
+import pyperclip
 
 st.set_page_config(page_title="Ingredient Scanner", layout="wide")
 
@@ -119,7 +122,8 @@ if st.session_state.ingredients:
                     st.session_state.selected_recipe = recipe['title']
                     try:
                         instructions, recipe_img = get_full_recipe(recipe['title'])
-                        st.image(recipe_img, use_container_width=True)
+                        st.image(recipe_img, use_container_width=False, width=400)
                         st.markdown(instructions)
+
                     except Exception as e:
                         st.error(f"Error loading recipe: {str(e)}")
